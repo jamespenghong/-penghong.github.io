@@ -93,13 +93,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Go 的开发人员对 error 处理肯定不陌生，因为在 Go 的设计哲学里面，错误就是应该被处理的而不是被忽略，以至于现在提到 Go，就会说 <code>if err != nil</code>，但是实际上目前 error 是比较简单的，它只是一个接口，只能存储简单的字符串，所以在实际的项目中，通常有两种方式来处理 error，一种是使用 Errorf进行拼接</p>
-<figure class="highlight plaintext"><figcaption><span>:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">type MyError struct&#123;</span><br><span class="line">    err error</span><br><span class="line">    msg string</span><br><span class="line">    code string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>Go 的开发人员对 error 处理肯定不陌生，因为在 Go 的设计哲学里面，错误就是应该被处理的而不是被忽略，以至于现在提到 Go，就会说 <code>if err != nil</code>，但是实际上目前 error 是比较简单的，它只是一个接口，只能存储简单的字符串，所以在实际的项目中，通常有两种方式来处理 error，一种是使用 Errorf进行拼接  <code>newErr := fmt.Errorf(&quot;error %v, err)</code><br>但是这种会丢失原始的错误类型，不能再进行比较等操作了，还有一种是我们会自定义 error struct 来存储额外的记录</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MyError <span class="keyword">struct</span>&#123;</span><br><span class="line">    err <span class="type">error</span></span><br><span class="line">    msg <span class="type">string</span></span><br><span class="line">    code <span class="type">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这种方式也不通用，因为每个项目都可能有自己的 struct，那么有没有一种更通用更简单的方式呢？答案就是 warp error</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2022/11/12/elegant-error/" data-id="clagr8biv0000li35ak5m14lq" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2022/11/12/elegant-error/" data-id="clagrhf560004x2354yyzf98c" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
@@ -146,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2022/11/11/mis-synctype/" data-id="clagr8bj70004li35a6byc8ff" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2022/11/11/mis-synctype/" data-id="clagrhf4r0000x235320g49pt" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
       
       
       
@@ -191,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2022/11/03/mis-watigroup/" data-id="clagr8bj50003li354khu0b87" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2022/11/03/mis-watigroup/" data-id="clagrhf550003x235h3xg55ke" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
       
       
       
