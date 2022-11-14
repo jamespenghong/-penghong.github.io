@@ -6,14 +6,17 @@
   
   <title>优雅的错误处理方式 | peng hong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="article">
+  <meta name="description" content="Go 的开发人员对 error 处理肯定不陌生，因为在 Go 的设计哲学里面，错误就是应该被处理的而不是被忽略，以至于现在提到 Go，就会说 if err !&#x3D; nil，但是实际上目前 error 是比较简单的，它只是一个接口，只能存储简单的字符串，所以在实际的项目中，通常有两种方式来处理 error，一种是使用 Errorf进行拼接 :123456&#96;&#96;&#96;type MyError struct&amp;#">
+<meta property="og:type" content="article">
 <meta property="og:title" content="优雅的错误处理方式">
 <meta property="og:url" content="http://yoursite.com/2022/11/12/elegant-error/index.html">
 <meta property="og:site_name" content="peng hong">
+<meta property="og:description" content="Go 的开发人员对 error 处理肯定不陌生，因为在 Go 的设计哲学里面，错误就是应该被处理的而不是被忽略，以至于现在提到 Go，就会说 if err !&#x3D; nil，但是实际上目前 error 是比较简单的，它只是一个接口，只能存储简单的字符串，所以在实际的项目中，通常有两种方式来处理 error，一种是使用 Errorf进行拼接 :123456&#96;&#96;&#96;type MyError struct&amp;#">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-12T13:02:59.000Z">
-<meta property="article:modified_time" content="2022-11-12T13:03:27.690Z">
+<meta property="article:modified_time" content="2022-11-14T12:20:53.198Z">
 <meta property="article:author" content="penghong">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/docs/atom.xml" title="peng hong" type="application/atom+xml">
@@ -93,14 +96,18 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p>Go 的开发人员对 error 处理肯定不陌生，因为在 Go 的设计哲学里面，错误就是应该被处理的而不是被忽略，以至于现在提到 Go，就会说 <code>if err != nil</code>，但是实际上目前 error 是比较简单的，它只是一个接口，只能存储简单的字符串，所以在实际的项目中，通常有两种方式来处理 error，一种是使用 Errorf进行拼接</p>
+<figure class="highlight plaintext"><figcaption><span>:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">type MyError struct&#123;</span><br><span class="line">    err error</span><br><span class="line">    msg string</span><br><span class="line">    code string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2022/11/12/elegant-error/" data-id="cladxwsfh0000xi352wne8q8l" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2022/11/12/elegant-error/" data-id="clagr8biv0000li35ak5m14lq" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/Go/" rel="tag">Go</a></li></ul>
+
     </footer>
   </div>
   
