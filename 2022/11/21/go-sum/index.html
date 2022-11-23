@@ -6,15 +6,15 @@
   
   <title>go-sum 的点点滴滴 | peng hong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="每个语言都有自己的包管理工具，就像 npm 之于 JavaScript，cargo 之于 rust，Go 也不例外，它也有自己的包管理工具，而且 Go 的包管理工具也经历了自己的发展，从开始的 gopath 到 govendor 再到后来统一天下的 Go modules，今天不讨论 Go 的包管理工具演进，也不讨论 modules 的使用，今天只聚焦go.sum 组成go.sum 文件中每一行大概">
+  <meta name="description" content="每个语言都有自己的包管理工具，就像 npm 之于 JavaScript，cargo 之于 rust，Go 也不例外，它也有自己的包管理工具，而且 Go 的包管理工具也经历了自己的发展，从开始的 go path 到 go vendor 再到后来统一天下的 Go modules，今天不讨论 Go 的包管理工具演进，也不讨论 modules 的使用，今天只聚焦go.sum 组成go.sum 文件中每一行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go-sum 的点点滴滴">
 <meta property="og:url" content="https://jamespenghong.github.io/docs/2022/11/21/go-sum/index.html">
 <meta property="og:site_name" content="peng hong">
-<meta property="og:description" content="每个语言都有自己的包管理工具，就像 npm 之于 JavaScript，cargo 之于 rust，Go 也不例外，它也有自己的包管理工具，而且 Go 的包管理工具也经历了自己的发展，从开始的 gopath 到 govendor 再到后来统一天下的 Go modules，今天不讨论 Go 的包管理工具演进，也不讨论 modules 的使用，今天只聚焦go.sum 组成go.sum 文件中每一行大概">
+<meta property="og:description" content="每个语言都有自己的包管理工具，就像 npm 之于 JavaScript，cargo 之于 rust，Go 也不例外，它也有自己的包管理工具，而且 Go 的包管理工具也经历了自己的发展，从开始的 go path 到 go vendor 再到后来统一天下的 Go modules，今天不讨论 Go 的包管理工具演进，也不讨论 modules 的使用，今天只聚焦go.sum 组成go.sum 文件中每一行">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-21T02:18:05.000Z">
-<meta property="article:modified_time" content="2022-11-23T12:15:13.063Z">
+<meta property="article:modified_time" content="2022-11-23T12:28:05.206Z">
 <meta property="article:author" content="penghong">
 <meta name="twitter:card" content="summary">
   
@@ -95,7 +95,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>每个语言都有自己的包管理工具，就像 npm 之于 JavaScript，cargo 之于 rust，Go 也不例外，它也有自己的包管理工具，而且 Go 的包管理工具也经历了自己的发展，从开始的 gopath 到 govendor 再到后来统一天下的 Go modules，今天不讨论 Go 的包管理工具演进，也不讨论 modules 的使用，今天只聚焦<code>go.sum</code></p>
+        <p>每个语言都有自己的包管理工具，就像 npm 之于 JavaScript，cargo 之于 rust，Go 也不例外，它也有自己的包管理工具，而且 Go 的包管理工具也经历了自己的发展，从开始的 go path 到 go vendor 再到后来统一天下的 Go modules，今天不讨论 Go 的包管理工具演进，也不讨论 modules 的使用，今天只聚焦<code>go.sum</code></p>
 <h3 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h3><p>go.sum 文件中每一行大概都可以概括成 <code>&lt;module&gt; &lt;version&gt; &lt;hash&gt;</code>，<br>module 代表依赖的路径<br>version 代表依赖的版本<br>hash 以 h1 开头的字符串，代表是第一版 hash 算法生成的校验和</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stathat.com/c/consistent v1.0.0 h1:ezyc51EGcRPJUxfHGSgJjWzJdj3NiMU9pNfLNGiXV0c=</span><br><span class="line">stathat.com/c/consistent v1.0.0/go.mod h1:QkzMWzcbB+yQBL2AttO6sgsQS/JSTapcDISJalmCDS0=</span><br></pre></td></tr></table></figure>
 <p>正常情况下，每个依赖包版本会包含两条记录，第一条记录为该依赖包版本整体（所有文件）的哈希值，第二条记录仅表示该依赖包版本中 go.mod 文件的哈希值，如果该依赖包版本没有 go.mod 文件，则只有第一条记录。如上面的例子中，v1.0.0 表示该依赖包版本整体，而 v1.0.0&#x2F;go.mod 表示该依赖包版本中 go.mod 文件</p>
@@ -104,7 +104,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clatmf17l00011735fw4y3tma" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clatmg92a00006a354au80yqe" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
       
       
       
