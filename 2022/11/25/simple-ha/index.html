@@ -14,7 +14,7 @@
 <meta property="og:description" content="在我们的架构设计中，有很多追求的指标，其中一个很重要的就是高可用，尤其是在微服务架构，高可用就显得更加重要了，因为整个系统的可用性是整个可用性的乘积 SLA没有度量就没有管理，那么该怎么度量系统的可用性呢，这里就涉及到一个指标SLA Service Level Agrement，这个指标可以当做我们对外部的承诺，如果某个系统对外宣称达到某个等级那他就需要提供对应的可用性，在工业界，大多会使用一次故">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-25T08:45:39.000Z">
-<meta property="article:modified_time" content="2022-11-26T13:10:03.443Z">
+<meta property="article:modified_time" content="2022-11-26T13:19:17.922Z">
 <meta property="article:author" content="penghong">
 <meta property="article:tag" content="arch">
 <meta name="twitter:card" content="summary">
@@ -126,8 +126,8 @@
 <td>99.9% (3个9)</td>
 <td>8.76 小时</td>
 <td>43.8 分</td>
-<td>10.1 分钟	1.44 分</td>
-<td></td>
+<td>10.1 分钟</td>
+<td>1.44 分</td>
 </tr>
 <tr>
 <td>99.99% (4个9)</td>
@@ -143,12 +143,24 @@
 <td>6.05 秒</td>
 <td>0.87 秒</td>
 </tr>
+<tr>
+<td>从上图可以看出，如果一个系统宣称达到3 个 9 的可用性，那么他一年内宕机时间必须小于 8.76 小时，这对于一些基础设施薄弱，靠人工来运维的团队来说简直是不可想象的</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody></table>
+<h3 id="HOW-TO"><a href="#HOW-TO" class="headerlink" title="HOW TO"></a>HOW TO</h3><p>既然可用性这么重要，那么有没有什么理论来指导我们来实现高可用呢，答案是有的</p>
+<ul>
+<li>replica</li>
+<li>failover</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="claxya0170008hr355i18dmb2" data-title="浅谈高可用" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="claxylskm0005ru350w5yh574" data-title="浅谈高可用" class="article-share-link">Share</a>
       
       
       
