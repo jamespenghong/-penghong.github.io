@@ -71,6 +71,94 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-simple-ha" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2022/11/25/simple-ha/" class="article-date">
+  <time class="dt-published" datetime="2022-11-25T08:45:39.000Z" itemprop="datePublished">2022-11-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2022/11/25/simple-ha/">浅谈高可用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在我们的架构设计中，有很多追求的指标，其中一个很重要的就是<code>高可用</code>，尤其是在微服务架构，高可用就显得更加重要了，因为整个系统的可用性是整个可用性的乘积</p>
+<h3 id="SLA"><a href="#SLA" class="headerlink" title="SLA"></a>SLA</h3><p>没有度量就没有管理，那么该怎么度量系统的可用性呢，这里就涉及到一个指标<code>SLA Service Level Agrement</code>，这个指标可以当做我们对外部的承诺，如果某个系统对外宣称达到某个等级那他就需要提供对应的可用性，在工业界，大多会使用一次故障从发生到恢复所需要的时间来度量这个指标</p>
+<table>
+<thead>
+<tr>
+<th>系统可用性%</th>
+<th>宕机时间&#x2F;年</th>
+<th>宕机时间&#x2F;月</th>
+<th>宕机时间&#x2F;周</th>
+<th>宕机时间&#x2F;天</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>90% (1个9)</td>
+<td>36.5 天</td>
+<td>72 小时</td>
+<td>16.8 小时</td>
+<td>2.4 小时</td>
+</tr>
+<tr>
+<td>99% (2个9)</td>
+<td>3.65 天</td>
+<td>7.20 小时</td>
+<td>1.68 小时</td>
+<td>14.4 分</td>
+</tr>
+<tr>
+<td>99.9% (3个9)</td>
+<td>8.76 小时</td>
+<td>43.8 分</td>
+<td>10.1 分钟	1.44 分</td>
+<td></td>
+</tr>
+<tr>
+<td>99.99% (4个9)</td>
+<td>52.56 分</td>
+<td>4.38 分</td>
+<td>1.01 分钟</td>
+<td>8.66 秒</td>
+</tr>
+<tr>
+<td>99.999% (5个9)</td>
+<td>5.26 分</td>
+<td>25.9 秒</td>
+<td>6.05 秒</td>
+<td>0.87 秒</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="claxya0170008hr355i18dmb2" data-title="浅谈高可用" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/arch/" rel="tag">arch</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-go-sum" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/docs/2022/11/21/go-sum/" class="article-date">
@@ -102,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clatmg92a00006a354au80yqe" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="claxya00w0001hr35axw89wv9" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
       
       
       
@@ -154,7 +242,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="clatmg92f00016a356hpwcqkm" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="claxya00r0000hr354vul8qz0" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
@@ -201,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="clatmg92g00026a354boefsfp" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="claxya00z0003hr359scgbcdv" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
       
       
       
@@ -246,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="clatmg92j00046a35fqvrhyuz" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="claxya0170007hr352alkfu77" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
       
       
       
@@ -273,7 +361,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/Go/" rel="tag">Go</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/arch/" rel="tag">arch</a></li></ul>
     </div>
   </div>
 
@@ -283,7 +371,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/docs/tags/Go/" style="font-size: 10px;">Go</a>
+      <a href="/docs/tags/Go/" style="font-size: 20px;">Go</a> <a href="/docs/tags/arch/" style="font-size: 10px;">arch</a>
     </div>
   </div>
 
@@ -303,6 +391,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/docs/2022/11/25/simple-ha/">浅谈高可用</a>
+          </li>
         
           <li>
             <a href="/docs/2022/11/21/go-sum/">go-sum 的点点滴滴</a>
