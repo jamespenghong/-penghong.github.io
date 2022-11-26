@@ -140,24 +140,22 @@
 <td>6.05 秒</td>
 <td>0.87 秒</td>
 </tr>
-<tr>
-<td>从上图可以看出，如果一个系统宣称达到3 个 9 的可用性，那么他一年内宕机时间必须小于 8.76 小时，这对于一些基础设施薄弱，靠人工来运维的团队来说简直是不可想象的</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+<p>从上图可以看出，如果一个系统宣称达到3 个 9 的可用性，那么他一年内宕机时间必须小于 8.76 小时，这对于一些基础设施薄弱，靠人工来运维的团队来说简直是不可想象的</p>
 <h3 id="HOW-TO"><a href="#HOW-TO" class="headerlink" title="HOW TO"></a>HOW TO</h3><p>既然可用性这么重要，那么有没有什么理论来指导我们来实现高可用呢，答案是有的</p>
 <ul>
-<li>replica</li>
-<li>failover</li>
+<li>replica 首先我们要有对数据和软硬件的冗余，要消除单点故障，比如系统的异地部署，异地多活就是这种解决方案</li>
+<li>failover 我们要有对故障的检测和监控能力，要能快速的发现问题并快速切换</li>
+<li>downgrade 我们要对整体的服务进行分级，搞清楚服务的重要性和优先级，在系统故障的时候，可以对某些非核心服务进行降级来保证核心服务的可用性，甚至可以在高峰时期拒绝低优先级服务的调用</li>
+<li>defense 我们要在系统上线之前就要做好防御措施，代码的复杂度要低，要有单元测试，并且要进行全链路压测，做好系统应急预案</li>
+<li>infrastructure 高可用还对我们的基础设施团队提出了很高的要求，我们的系统必须要支持灰度发布，在小流量阶段就能发现问题，然后还要支持回滚</li>
 </ul>
+<p>综上，如果我们要搭建一个高可用的系统，那么我们就要有工程化的流程和文化，用工程化的思维去开发，用工程化的思维去运维，用工程化的思维去管理</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="claxylskm0005ru350w5yh574" data-title="浅谈高可用" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="claxzgpo00005a535bkwv64vd" data-title="浅谈高可用" class="article-share-link">Share</a>
       
       
       
@@ -202,7 +200,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="claxylskj0003ru352t2pacyr" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="claxzgpnq0000a53556840d41" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
       
       
       
@@ -254,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="claxylska0000ru3554yb02db" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="claxzgpnv0001a5351i0xcllw" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
@@ -301,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="claxylskf0001ru35gbf9em37" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="claxzgpnx0002a5355rsfgz9y" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
       
       
       
@@ -346,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="claxylskl0004ru357oc7g5gy" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="claxzgpnz0004a5351kqmhun0" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
       
       
       
