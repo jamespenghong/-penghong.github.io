@@ -101,12 +101,12 @@
 <h3 id="长度变化"><a href="#长度变化" class="headerlink" title="长度变化"></a>长度变化</h3><p>我们可以使用 append 操作来改变这个数组，如果我们 append 的操作超过了剩余容量，那么数组就会触发扩容，因为数组是一个固定长度的结构，所以需要一个新的数组来承载这些元素，在容量达到 1024 之前，数组会以指数型方式进行扩容</p>
 <h3 id="共享数组"><a href="#共享数组" class="headerlink" title="共享数组"></a>共享数组</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">s1 := <span class="built_in">make</span>([]<span class="type">int</span>,<span class="number">3</span>,<span class="number">6</span>)</span><br><span class="line">s2 := s1[<span class="number">1</span>:<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
 
-<p>看一下上面的例子，你觉得 s2 的长度和容量是多少呢？ <img src="/docs/source/image/slice.png" alt="s1 s2共享一个底层数组"><br>从上图我们可以清晰的看出，因为 s1 和 s2 共享一个底层数组，所以 s2 的长度和容量是 2 和 5</p>
+<p>看一下上面的例子，你觉得 s2 的长度和容量是多少呢？ <img src="/docs/source/_posts/image/slice.png" alt="s1 s2共享一个底层数组"><br>从上图我们可以清晰的看出，因为 s1 和 s2 共享一个底层数组，所以 s2 的长度和容量是 2 和 5</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="clbgjyykm0003wl350e4b31tt" data-title="深入理解 slice" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="clbhfegah00037x3575rw7ll4" data-title="深入理解 slice" class="article-share-link">Share</a>
       
       
       
@@ -202,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="clbgjyyko0007wl3521kt30h8" data-title="浅谈高可用" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="clbhfegaj00057x354q9959rj" data-title="浅谈高可用" class="article-share-link">Share</a>
       
       
       
@@ -247,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clbgjyykj0001wl351pxxc5rq" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clbhfegad00017x352j9p252h" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
       
       
       
@@ -299,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="clbgjyyke0000wl353k5nh3xj" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="clbhfega200007x35dva49dg4" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
@@ -346,7 +346,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="clbgjyykn0004wl358pabbpkc" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="clbhfegal00077x35dgmd2m88" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
       
       
       
@@ -391,7 +391,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="clbgjyykn0005wl35f4n9ebqv" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="clbhfegai00047x35guol0moh" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
       
       
       
