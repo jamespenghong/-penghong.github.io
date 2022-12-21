@@ -6,15 +6,15 @@
   
   <title>浅谈高性能 | peng hong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢 优化性能的方法很多，但其实他们的本质都只是优化计算和 IO 优化计算优化 IO">
+  <meta name="description" content="在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢 优化性能的方法很多，但其实他们的本质都只是优化计算和 IO 优化计算·首先是代码方面，可以对一些复杂度高的代码进行优化，比如可以将 o(n2) 的复杂度优化到 o(n)甚至更低的复杂度，这样就可以减少很多的运算 ·对于业务逻辑也可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈高性能">
 <meta property="og:url" content="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/index.html">
 <meta property="og:site_name" content="peng hong">
-<meta property="og:description" content="在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢 优化性能的方法很多，但其实他们的本质都只是优化计算和 IO 优化计算优化 IO">
+<meta property="og:description" content="在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢 优化性能的方法很多，但其实他们的本质都只是优化计算和 IO 优化计算·首先是代码方面，可以对一些复杂度高的代码进行优化，比如可以将 o(n2) 的复杂度优化到 o(n)甚至更低的复杂度，这样就可以减少很多的运算 ·对于业务逻辑也可以">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-12-17T09:30:06.000Z">
-<meta property="article:modified_time" content="2022-12-17T13:09:59.456Z">
+<meta property="article:modified_time" content="2022-12-21T12:33:14.372Z">
 <meta property="article:author" content="penghong">
 <meta name="twitter:card" content="summary">
   
@@ -97,11 +97,18 @@
       
         <p>在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢</p>
 <p>优化性能的方法很多，但其实他们的本质都只是优化<code>计算和 IO</code></p>
-<h3 id="优化计算"><a href="#优化计算" class="headerlink" title="优化计算"></a>优化计算</h3><h3 id="优化-IO"><a href="#优化-IO" class="headerlink" title="优化 IO"></a>优化 IO</h3>
+<h3 id="优化计算"><a href="#优化计算" class="headerlink" title="优化计算"></a>优化计算</h3><p>·首先是代码方面，可以对一些复杂度高的代码进行优化，比如可以将 o(n2) 的复杂度优化到 o(n)甚至更低的复杂度，这样就可以减少很多的运算</p>
+<p>·对于业务逻辑也可以进行优化，可以将非核心逻辑和核心进行剥离，那么对非核心逻辑就可以进行异步的处理，防止拖慢核心逻辑，比如用户注册是核心逻辑，而对用户发放注册奖励之类的就可以当做非核心逻辑处理</p>
+<p>·对于没有依赖关系的请求和步骤我们应该要并发地去执行，那么这样整个系统的耗时久取决于最长的而不是整个的耗时之和</p>
+<p>·硬件的横向和纵向扩展也是一个考虑的方向，对于计算密集型业务可以提高硬件性能，矿机就是这样一个很好的例子，但是这个应该放在最后考虑，因为硬件是有上限的</p>
+<h3 id="优化-IO"><a href="#优化-IO" class="headerlink" title="优化 IO"></a>优化 IO</h3><p>·首先是引入缓存，可以对时效性要求不高，变动不频繁的数据进行缓存，为什么这是 io 的优化呢，因为缓存基本都是在内存<br>中，而从内存中获取数据要比从硬盘中获取快上一个数量级</p>
+<p>·对数据库和查询也可以进行优化，根据查询条件对系统建立索引，查询尽量少的数据</p>
+<p>·网络 io 也是一个重要的耗时，可以引入 Quic，它极大地减低了建立和维护网络连接的成本</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="clbryj6v7000al135hny52rdf" data-title="浅谈高性能" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="clbxmyz230009mp35dymycixj" data-title="浅谈高性能" class="article-share-link">Share</a>
       
       
       

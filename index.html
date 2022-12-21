@@ -95,11 +95,18 @@
       
         <p>在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢</p>
 <p>优化性能的方法很多，但其实他们的本质都只是优化<code>计算和 IO</code></p>
-<h3 id="优化计算"><a href="#优化计算" class="headerlink" title="优化计算"></a>优化计算</h3><h3 id="优化-IO"><a href="#优化-IO" class="headerlink" title="优化 IO"></a>优化 IO</h3>
+<h3 id="优化计算"><a href="#优化计算" class="headerlink" title="优化计算"></a>优化计算</h3><p>·首先是代码方面，可以对一些复杂度高的代码进行优化，比如可以将 o(n2) 的复杂度优化到 o(n)甚至更低的复杂度，这样就可以减少很多的运算</p>
+<p>·对于业务逻辑也可以进行优化，可以将非核心逻辑和核心进行剥离，那么对非核心逻辑就可以进行异步的处理，防止拖慢核心逻辑，比如用户注册是核心逻辑，而对用户发放注册奖励之类的就可以当做非核心逻辑处理</p>
+<p>·对于没有依赖关系的请求和步骤我们应该要并发地去执行，那么这样整个系统的耗时久取决于最长的而不是整个的耗时之和</p>
+<p>·硬件的横向和纵向扩展也是一个考虑的方向，对于计算密集型业务可以提高硬件性能，矿机就是这样一个很好的例子，但是这个应该放在最后考虑，因为硬件是有上限的</p>
+<h3 id="优化-IO"><a href="#优化-IO" class="headerlink" title="优化 IO"></a>优化 IO</h3><p>·首先是引入缓存，可以对时效性要求不高，变动不频繁的数据进行缓存，为什么这是 io 的优化呢，因为缓存基本都是在内存<br>中，而从内存中获取数据要比从硬盘中获取快上一个数量级</p>
+<p>·对数据库和查询也可以进行优化，根据查询条件对系统建立索引，查询尽量少的数据</p>
+<p>·网络 io 也是一个重要的耗时，可以引入 Quic，它极大地减低了建立和维护网络连接的成本</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="clbryj6v7000al135hny52rdf" data-title="浅谈高性能" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="clbxmyz230009mp35dymycixj" data-title="浅谈高性能" class="article-share-link">Share</a>
       
       
       
@@ -147,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="clbryj6uz0003l1352y9jcckd" data-title="深入理解 slice" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="clbxmyz1z0003mp354z8iavoz" data-title="深入理解 slice" class="article-share-link">Share</a>
       
       
       
@@ -243,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="clbryj6v60009l13508hn8g7p" data-title="浅谈高可用" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="clbxmyz220007mp35cchc1ob3" data-title="浅谈高可用" class="article-share-link">Share</a>
       
       
       
@@ -288,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clbryj6uw0001l135ctz9clq3" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clbxmyz1w0001mp357g5p7zm8" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
       
       
       
@@ -340,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="clbryj6ur0000l135gid6b4tb" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="clbxmyz1s0000mp353yeoauva" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
@@ -387,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="clbryj6v00004l1350nz9ej79" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="clbxmyz200004mp35btgadxt6" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
       
       
       
@@ -432,7 +439,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="clbryj6v00005l135210xgtm7" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="clbxmyz210005mp35etqu6iw9" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
       
       
       
