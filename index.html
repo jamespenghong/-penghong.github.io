@@ -95,12 +95,16 @@
       
         <p>从这篇文章开始，将为大家介绍经典的设计模式，介绍它背后的设计意图和思想，并且会给出 Golang 的代码示例，首先带来的是工厂模式</p>
 <h3 id="问题思考"><a href="#问题思考" class="headerlink" title="问题思考"></a>问题思考</h3><p>假设你的业务里开始只有小米手机的业务，它支持打电话、发短信，后来随着业务的发展，又有了华为手机，它也支持打电话和发短信，后来又有越来越多的手机加入到你的业务，那为了代码的复用和可扩展，该如何组织我们的结构呢</p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>对于同样的逻辑，我们可以抽象出接口，然后让每个实体去实现</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>对于同样的逻辑，我们可以抽象出接口，然后让每个实体去实现，因为 Golang 不是传统的 OOP 语言，所以接口也是 go 实现多态的一种方式，但是随着实体越来越多，对于调用方就有困扰了，也许调用方需要了解所有创建实例的方法，所以我们需要提供一个通用的创建实体的方法给到调用方，这个就是我们所说的<code>简单工厂</code><br><img src="/docs/source/_posts/factory/sf.png" alt="简单工厂"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通用方法</span></span><br><span class="line"><span class="keyword">type</span> phoner <span class="keyword">interface</span>&#123;</span><br><span class="line">    Name() <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Mi <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Huawei <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="type">string</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//小米手机实现方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m Mi)</span></span>Name <span class="type">string</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> m.Name</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//华为手机实现方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(h Huawei)</span></span>Name <span class="type">string</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> h.Name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">(kind <span class="type">string</span>)</span></span> phoner&#123;</span><br><span class="line">    <span class="keyword">if</span> kind == <span class="string">&quot;xiaomi&quot;</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;Mi&#123;<span class="string">&quot;xiaomi&quot;</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &amp;Huawei&#123;<span class="string">&quot;huawei&quot;</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有另外一种模式叫<code>工厂方法</code>，它和上面的类似，只不过简单工厂返回的是具体的实例，而工厂方法会返回对应的工厂，再由工厂创建实例<br><img src="/docs/source/_posts/factory/f.png" alt="工厂方法"></p>
+<p>工厂方法属于创建型模式的一种，它很好地解决了实例的创建和管理问题</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/27/factory/" data-id="cldztgazt000140357iy4amdx" data-title="设计模式-工厂模式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/27/factory/" data-id="cle2rn9qh0001jb359o645fm0" data-title="设计模式-工厂模式" class="article-share-link">Share</a>
       
       
       
@@ -147,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="cldztgb01000b4035anhh96m6" data-title="浅谈高性能" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="cle2rn9qn0007jb355p44a3sk" data-title="浅谈高性能" class="article-share-link">Share</a>
       
       
       
@@ -197,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="cldztgazx0004403590vg5dgp" data-title="深入理解 slice" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="cle2rn9ql0004jb3542g2dg9k" data-title="深入理解 slice" class="article-share-link">Share</a>
       
       
       
@@ -293,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="cldztgb00000940355mlhbymu" data-title="浅谈高可用" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="cle2rn9qm0005jb35au6wb0w7" data-title="浅谈高可用" class="article-share-link">Share</a>
       
       
       
@@ -338,7 +342,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="cldztgazw00034035h9b1fqp8" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="cle2rn9qk0003jb35958h1y73" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
       
       
       
@@ -390,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="cldztgazo000040354wfwe3ss" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="cle2rn9qd0000jb35gcw32sb9" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
@@ -437,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="cldztgazy00054035467r3xkl" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="cle2rn9qo0009jb357c972k17" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
       
       
       
@@ -482,7 +486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="cldztgazz000740353vjuc522" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="cle2rn9qp000ajb35a770gnqz" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
       
       
       
