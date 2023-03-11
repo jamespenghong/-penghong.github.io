@@ -71,6 +71,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-abs-factory" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2023/03/11/abs-factory/" class="article-date">
+  <time class="dt-published" datetime="2023-03-11T07:35:28.000Z" itemprop="datePublished">2023-03-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2023/03/11/abs-factory/">设计模式-抽象工厂模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>书接上文，之前说到工厂方法可以返回对应的工厂，然后创建实例，但是随着我们的内容越来越多，工厂也越来越多，那么代码肯定是不好管理的，那么这时候就会涉及到<code>抽象工厂</code></p>
+<h3 id="产品等级-amp-amp-产品族"><a href="#产品等级-amp-amp-产品族" class="headerlink" title="产品等级&amp;&amp;产品族"></a>产品等级&amp;&amp;产品族</h3><p>这里首先会引入两个概念</p>
+<p>产品等级结构：产品等级结构即产品的继承结构，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是父类，而具体品牌的电视机是其子类</p>
+<p><img src="/docs/image/productcollect.png" alt="产品族"></p>
+<p>产品族：在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品，如海尔电器工厂生产的海尔电视机、海尔电冰箱，海尔电视机位于电视机产品等级结构中，海尔电冰箱位于电冰箱产品等级结构中，海尔电视机、海尔电冰箱构成了一个产品族</p>
+<p>抽象工厂:它声明了一组用于创建一族产品的方法，每个方法对应一种产品</p>
+<p>具体工厂:它实现了在抽象工厂中声明的创建产品的方法，生成了一组具体产品，这些产品构成了一个产品族，每个产品都位于某个产品等级结构中</p>
+<p>抽象产品: 它为每种产品声明接口，在抽象产品中声明了产品的所有业务方法</p>
+<p>具体产品: 它定义具体工厂生产的具体产品对象，实现在抽象产品接口中声明的业务方法</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单工厂：唯一工厂类，一个产品抽象类，工厂类的创建方法依据入参判断并创建具体产品对象。<br>工厂方法：多个工厂类，一个产品抽象类，利用多态创建不同的产品对象，避免了大量的if-else判断。<br>抽象工厂：多个工厂类，多个产品抽象类，产品子类分组，同一个工厂实现类创建同组中的不同产品，减少了工厂子类的数量。</p>
+<p>上面涉及的工厂方法适合复杂的对象初始化，如果初始化的对象非常简单，那直接使用 new 就是可以了。 </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jamespenghong.github.io/docs/2023/03/11/abs-factory/" data-id="clf3phlv600006h35at64a3ej" data-title="设计模式-抽象工厂模式" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/design-pattern/" rel="tag">design pattern</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-factory" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/docs/2022/12/27/factory/" class="article-date">
@@ -104,11 +155,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/27/factory/" data-id="cle2ryx2w0001yp352vvr39rn" data-title="设计模式-工厂模式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/27/factory/" data-id="clf3phlve00036h358x1leysh" data-title="设计模式-工厂模式" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/arch/" rel="tag">arch</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/design-pattern/" rel="tag">design pattern</a></li></ul>
 
     </footer>
   </div>
@@ -153,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="cle2ryx330009yp353y2zc8ds" data-title="浅谈高性能" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="clf3phlvk000e6h35cbjjhcl0" data-title="浅谈高性能" class="article-share-link">Share</a>
       
       
       
@@ -203,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="cle2ryx300004yp35calv2zkk" data-title="深入理解 slice" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="clf3phlvg00056h350zu52e7t" data-title="深入理解 slice" class="article-share-link">Share</a>
       
       
       
@@ -299,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="cle2ryx310005yp351ab1ewpq" data-title="浅谈高可用" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="clf3phlvk000c6h35469xf5j3" data-title="浅谈高可用" class="article-share-link">Share</a>
       
       
       
@@ -344,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="cle2ryx2z0003yp35c5gq4ap7" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clf3phlvf00046h356u8a6gmb" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
       
       
       
@@ -396,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="cle2ryx2s0000yp350t405a5d" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="clf3phlvb00016h35f0506v9s" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
@@ -443,7 +494,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="cle2ryx320008yp3534cm3bpj" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="clf3phlvh00086h35gma93q78" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
       
       
       
@@ -488,7 +539,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="cle2ryx35000cyp3573iog1e4" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="clf3phlvi00096h35ew932n3c" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
       
       
       
@@ -515,7 +566,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/arch/" rel="tag">arch</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/arch/" rel="tag">arch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/docs/tags/design-pattern/" rel="tag">design pattern</a></li></ul>
     </div>
   </div>
 
@@ -525,7 +576,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/docs/tags/Go/" style="font-size: 10px;">Go</a> <a href="/docs/tags/arch/" style="font-size: 10px;">arch</a>
+      <a href="/docs/tags/Go/" style="font-size: 20px;">Go</a> <a href="/docs/tags/arch/" style="font-size: 10px;">arch</a> <a href="/docs/tags/design-pattern/" style="font-size: 10px;">design pattern</a>
     </div>
   </div>
 
@@ -534,7 +585,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2022/11/">November 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2022/11/">November 2022</a></li></ul>
     </div>
   </div>
 
@@ -545,6 +596,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/docs/2023/03/11/abs-factory/">设计模式-抽象工厂模式</a>
+          </li>
         
           <li>
             <a href="/docs/2022/12/27/factory/">设计模式-工厂模式</a>
@@ -560,10 +615,6 @@
         
           <li>
             <a href="/docs/2022/11/25/simple-ha/">浅谈高可用</a>
-          </li>
-        
-          <li>
-            <a href="/docs/2022/11/21/go-sum/">go-sum 的点点滴滴</a>
           </li>
         
       </ul>

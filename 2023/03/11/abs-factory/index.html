@@ -4,20 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>浅谈高性能 | peng hong</title>
+  <title>设计模式-抽象工厂模式 | peng hong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢 优化性能的方法很多，但其实他们的本质都只是优化计算和 IO 优化计算·首先是代码方面，可以对一些复杂度高的代码进行优化，比如可以将 o(n2) 的复杂度优化到 o(n)甚至更低的复杂度，这样就可以减少很多的运算 ·对于业务逻辑也可以">
+  <meta name="description" content="书接上文，之前说到工厂方法可以返回对应的工厂，然后创建实例，但是随着我们的内容越来越多，工厂也越来越多，那么代码肯定是不好管理的，那么这时候就会涉及到抽象工厂 产品等级&amp;&amp;产品族这里首先会引入两个概念 产品等级结构：产品等级结构即产品的继承结构，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅谈高性能">
-<meta property="og:url" content="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/index.html">
+<meta property="og:title" content="设计模式-抽象工厂模式">
+<meta property="og:url" content="https://jamespenghong.github.io/docs/2023/03/11/abs-factory/index.html">
 <meta property="og:site_name" content="peng hong">
-<meta property="og:description" content="在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢 优化性能的方法很多，但其实他们的本质都只是优化计算和 IO 优化计算·首先是代码方面，可以对一些复杂度高的代码进行优化，比如可以将 o(n2) 的复杂度优化到 o(n)甚至更低的复杂度，这样就可以减少很多的运算 ·对于业务逻辑也可以">
+<meta property="og:description" content="书接上文，之前说到工厂方法可以返回对应的工厂，然后创建实例，但是随着我们的内容越来越多，工厂也越来越多，那么代码肯定是不好管理的，那么这时候就会涉及到抽象工厂 产品等级&amp;&amp;产品族这里首先会引入两个概念 产品等级结构：产品等级结构即产品的继承结构，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-12-17T09:30:06.000Z">
-<meta property="article:modified_time" content="2022-12-21T12:56:40.051Z">
+<meta property="og:image" content="https://jamespenghong.github.io/docs/image/productcollect.png">
+<meta property="article:published_time" content="2023-03-11T07:35:28.000Z">
+<meta property="article:modified_time" content="2023-03-11T08:29:21.202Z">
 <meta property="article:author" content="penghong">
-<meta property="article:tag" content="arch">
+<meta property="article:tag" content="design pattern">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jamespenghong.github.io/docs/image/productcollect.png">
   
     <link rel="alternate" href="/docs/atom.xml" title="peng hong" type="application/atom+xml">
   
@@ -74,10 +76,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-simple-hp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-abs-factory" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/docs/2022/12/17/simple-hp/" class="article-date">
-  <time class="dt-published" datetime="2022-12-17T09:30:06.000Z" itemprop="datePublished">2022-12-17</time>
+    <a href="/docs/2023/03/11/abs-factory/" class="article-date">
+  <time class="dt-published" datetime="2023-03-11T07:35:28.000Z" itemprop="datePublished">2023-03-11</time>
 </a>
     
   </div>
@@ -88,7 +90,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      浅谈高性能
+      设计模式-抽象工厂模式
     </h1>
   
 
@@ -96,24 +98,26 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>在后端的服务实践中，高性能始终是我们追寻的一个方向，当我们说一个服务性能很高时，那么它的系统响应时间会很短，系统所能承载的 TPS 会很高，但是要怎样才能达到高性能呢</p>
-<p>优化性能的方法很多，但其实他们的本质都只是优化<code>计算和 IO</code></p>
-<h3 id="优化计算"><a href="#优化计算" class="headerlink" title="优化计算"></a>优化计算</h3><p>·首先是代码方面，可以对一些复杂度高的代码进行优化，比如可以将 o(n2) 的复杂度优化到 o(n)甚至更低的复杂度，这样就可以减少很多的运算</p>
-<p>·对于业务逻辑也可以进行优化，可以将非核心逻辑和核心进行剥离，那么对非核心逻辑就可以进行异步的处理，防止拖慢核心逻辑，比如用户注册是核心逻辑，而对用户发放注册奖励之类的就可以当做非核心逻辑处理</p>
-<p>·对于没有依赖关系的请求和步骤我们应该要并发地去执行，那么这样整个系统的耗时久取决于最长的而不是整个的耗时之和</p>
-<p>·硬件的横向和纵向扩展也是一个考虑的方向，对于计算密集型业务可以提高硬件性能，矿机就是这样一个很好的例子，但是这个应该放在最后考虑，因为硬件是有上限的</p>
-<h3 id="优化-IO"><a href="#优化-IO" class="headerlink" title="优化 IO"></a>优化 IO</h3><p>·首先是引入缓存，可以对时效性要求不高，变动不频繁的数据进行缓存，为什么这是 io 的优化呢，因为缓存基本都是在内存<br>中，而从内存中获取数据要比从硬盘中获取快上一个数量级</p>
-<p>·对数据库和查询也可以进行优化，根据查询条件对系统建立索引，查询尽量少的数据</p>
-<p>·网络 io 也是一个重要的耗时，可以引入 Quic，它极大地减低了建立和维护网络连接的成本</p>
+        <p>书接上文，之前说到工厂方法可以返回对应的工厂，然后创建实例，但是随着我们的内容越来越多，工厂也越来越多，那么代码肯定是不好管理的，那么这时候就会涉及到<code>抽象工厂</code></p>
+<h3 id="产品等级-amp-amp-产品族"><a href="#产品等级-amp-amp-产品族" class="headerlink" title="产品等级&amp;&amp;产品族"></a>产品等级&amp;&amp;产品族</h3><p>这里首先会引入两个概念</p>
+<p>产品等级结构：产品等级结构即产品的继承结构，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是父类，而具体品牌的电视机是其子类</p>
+<p><img src="/docs/image/productcollect.png" alt="产品族"></p>
+<p>产品族：在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品，如海尔电器工厂生产的海尔电视机、海尔电冰箱，海尔电视机位于电视机产品等级结构中，海尔电冰箱位于电冰箱产品等级结构中，海尔电视机、海尔电冰箱构成了一个产品族</p>
+<p>抽象工厂:它声明了一组用于创建一族产品的方法，每个方法对应一种产品</p>
+<p>具体工厂:它实现了在抽象工厂中声明的创建产品的方法，生成了一组具体产品，这些产品构成了一个产品族，每个产品都位于某个产品等级结构中</p>
+<p>抽象产品: 它为每种产品声明接口，在抽象产品中声明了产品的所有业务方法</p>
+<p>具体产品: 它定义具体工厂生产的具体产品对象，实现在抽象产品接口中声明的业务方法</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单工厂：唯一工厂类，一个产品抽象类，工厂类的创建方法依据入参判断并创建具体产品对象。<br>工厂方法：多个工厂类，一个产品抽象类，利用多态创建不同的产品对象，避免了大量的if-else判断。<br>抽象工厂：多个工厂类，多个产品抽象类，产品子类分组，同一个工厂实现类创建同组中的不同产品，减少了工厂子类的数量。</p>
+<p>上面涉及的工厂方法适合复杂的对象初始化，如果初始化的对象非常简单，那直接使用 new 就是可以了。 </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="clf3phlvk000e6h35cbjjhcl0" data-title="浅谈高性能" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2023/03/11/abs-factory/" data-id="clf3phlv600006h35at64a3ej" data-title="设计模式-抽象工厂模式" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/arch/" rel="tag">arch</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/design-pattern/" rel="tag">design pattern</a></li></ul>
 
     </footer>
   </div>
@@ -121,19 +125,10 @@
     
 <nav id="article-nav">
   
-    <a href="/docs/2022/12/27/factory/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          设计模式-工厂模式
-        
-      </div>
-    </a>
   
-  
-    <a href="/docs/2022/12/04/indepth-slice/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/docs/2022/12/27/factory/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">深入理解 slice</div>
+      <div class="article-nav-title">设计模式-工厂模式</div>
     </a>
   
 </nav>
