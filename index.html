@@ -71,6 +71,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vistor" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/docs/2023/12/18/vistor/" class="article-date">
+  <time class="dt-published" datetime="2023-12-18T07:36:37.000Z" itemprop="datePublished">2023-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/docs/2023/12/18/vistor/">设计模式-访问者模式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>设计模式的提出已经有很长时间了，他可以帮助我们更好的组织代码和结构，也许有的人对此不屑一顾，认为代码是基于演化的而不应该囿于模式，但实际上随着代码规模的增大，如果我们还追求良好的维护性、扩展性，那设计模式是不可或缺的，今天就来介绍一种和变更有关的设计模式。</p>
+<p>假设你维护一个人员管理系统，里面有各种类型人员，比如总经理、行政、商务。假设其他团队要求你提供一个获取人员考勤的实现，那么你该如何实现？</p>
+<p>第一，将 getDays 方法添加到接口，然后每个类型都去实现，这似乎是比较好的解决方法，但是代价也比较高，你需要改动每一个类型的实现，你肯定不希望只有有需求就改动自己的宝贝代码吧</p>
+<p>第二，让需求方自己实现，但是这并不总是可行的</p>
+<p>第三，就是使用访问者模式实现</p>
+<p>首先定义一个如下访问者接口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type visitor interface &#123;</span><br><span class="line">    visitForManage(manage)</span><br><span class="line">    visitForAdmin(admin)</span><br><span class="line">    visitForMarket(market)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以使用上面接口中的方法来为总经理、行政、商务添加相应的功能。</p>
+<p>你可能在想， 为什么我们不再访问者接口里面使用单一的 <code>visit(people)</code>方法呢？ 这是因为 Go 语言不支持方法重载， 所以你无法以相同名称、 不同参数的方式来使用方法。</p>
+<p>好了， 第二项重要的工作是将 <code>accept</code>接受方法添加至人员接口中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func accept(v visitor)</span><br></pre></td></tr></table></figure>
+
+<p>所有形状结构体都需要定义此方法， 类似于：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func (obj * manage) accept(v visitor)&#123;</span><br><span class="line">    v.visitForManage(obj)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是我们不是不希望修改现有的实现吗？ 确实是这样，但是在使用访问者模式时， 我们必须要修改结构体。 但这样的修改只需要进行一次。</p>
+<p>如果后续添加任何其他行为， 我们将使用相同的 <code>accept(v visitor)</code>函数， 而无需对结构体进行进一步的修改。我们只需简单地定义访问者接口的具体实现即可。</p>
+<p>接下来就看一下具体的代码实现吧</p>
+<h4 id="people-go-元件"><a href="#people-go-元件" class="headerlink" title="people.go:  元件"></a><strong>people.go:</strong>  元件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">type People interface &#123;</span><br><span class="line">    getType() string</span><br><span class="line">    accept(Visitor)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="mamage-go-具体元件"><a href="#mamage-go-具体元件" class="headerlink" title="mamage.go:  具体元件"></a><strong>mamage.go:</strong>  具体元件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">type Manage struct &#123;</span><br><span class="line">    name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Manage) accept(v Visitor) &#123;</span><br><span class="line">    v.visitForManage(s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *Manage) getType() string &#123;</span><br><span class="line">    return &quot;Manage&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="admin-go-具体元件"><a href="#admin-go-具体元件" class="headerlink" title="admin.go:  具体元件"></a><strong>admin.go:</strong>  具体元件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">type Admin struct &#123;</span><br><span class="line">    name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c *Admin) accept(v Visitor) &#123;</span><br><span class="line">    v.visitForAdmin(c)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c *Admin) getType() string &#123;</span><br><span class="line">    return &quot;Admin&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="market-go-具体元件"><a href="#market-go-具体元件" class="headerlink" title="market.go:  具体元件"></a><strong>market.go:</strong>  具体元件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">type Market struct &#123;</span><br><span class="line">    name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (t *Market) accept(v Visitor) &#123;</span><br><span class="line">    v.visitForMarket(t)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (t *Market) getType() string &#123;</span><br><span class="line">    return &quot;Market&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="visitor-go-访问者"><a href="#visitor-go-访问者" class="headerlink" title="visitor.go:  访问者"></a><strong>visitor.go:</strong>  访问者</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">type Visitor interface &#123;</span><br><span class="line">    visitForManage(*Manage)</span><br><span class="line">    visitForAdmin(*Admin)</span><br><span class="line">    visitForMarket(*Market)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="daysCalculator-go-具体访问者"><a href="#daysCalculator-go-具体访问者" class="headerlink" title="daysCalculator.go:  具体访问者"></a><strong>daysCalculator.go:</strong>  具体访问者</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type DaysCalculator struct &#123;</span><br><span class="line">    days int</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (a *DaysCalculator) visitForManage(*Manage) &#123;</span><br><span class="line">    fmt.Println(&quot;Calculating visitForManage&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (a *DaysCalculator) visitForAdmin(*Admin) &#123;</span><br><span class="line">    fmt.Println(&quot;Calculating visitForAdmin&quot;)</span><br><span class="line">&#125;</span><br><span class="line">func (a *DaysCalculator) visitForMarket(*Market) &#123;</span><br><span class="line">    fmt.Println(&quot;Calculating visitForMarket&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jamespenghong.github.io/docs/2023/12/18/vistor/" data-id="clqalvvmh000gzv9k4vgx869s" data-title="设计模式-访问者模式" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/docs/tags/design-pattern/" rel="tag">design pattern</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-abs-factory" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/docs/2023/03/11/abs-factory/" class="article-date">
@@ -108,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2023/03/11/abs-factory/" data-id="clf3phlv600006h35at64a3ej" data-title="设计模式-抽象工厂模式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2023/03/11/abs-factory/" data-id="clqalvvm10000zv9k2gzg79uj" data-title="设计模式-抽象工厂模式" class="article-share-link">Share</a>
       
       
       
@@ -155,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/27/factory/" data-id="clf3phlve00036h358x1leysh" data-title="设计模式-工厂模式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/27/factory/" data-id="clqalvvm80003zv9k0rha6uf0" data-title="设计模式-工厂模式" class="article-share-link">Share</a>
       
       
       
@@ -204,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="clf3phlvk000e6h35cbjjhcl0" data-title="浅谈高性能" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/17/simple-hp/" data-id="clqalvvmf000dzv9k93bha252" data-title="浅谈高性能" class="article-share-link">Share</a>
       
       
       
@@ -254,7 +325,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="clf3phlvg00056h350zu52e7t" data-title="深入理解 slice" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/12/04/indepth-slice/" data-id="clqalvvma0005zv9kg3ec0lgp" data-title="深入理解 slice" class="article-share-link">Share</a>
       
       
       
@@ -350,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="clf3phlvk000c6h35469xf5j3" data-title="浅谈高可用" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/25/simple-ha/" data-id="clqalvvmc0008zv9kad2nfuym" data-title="浅谈高可用" class="article-share-link">Share</a>
       
       
       
@@ -395,7 +466,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clf3phlvf00046h356u8a6gmb" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/21/go-sum/" data-id="clqalvvm90004zv9kda7xgh9d" data-title="go-sum 的点点滴滴" class="article-share-link">Share</a>
       
       
       
@@ -447,7 +518,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="clf3phlvb00016h35f0506v9s" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/12/elegant-error/" data-id="clqalvvm50001zv9k29ir0ryf" data-title="优雅的错误处理方式" class="article-share-link">Share</a>
       
       
       
@@ -494,7 +565,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="clf3phlvh00086h35gma93q78" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/11/mis-synctype/" data-id="clqalvvmc0009zv9kcv5ma1xo" data-title="正确使用 sync 里面的类型" class="article-share-link">Share</a>
       
       
       
@@ -539,7 +610,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="clf3phlvi00096h35ew932n3c" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
+      <a data-url="https://jamespenghong.github.io/docs/2022/11/03/mis-watigroup/" data-id="clqalvvme000bzv9kau0f0qgb" data-title="sync.WaitGroup 使用误区" class="article-share-link">Share</a>
       
       
       
@@ -576,7 +647,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/docs/tags/Go/" style="font-size: 20px;">Go</a> <a href="/docs/tags/arch/" style="font-size: 10px;">arch</a> <a href="/docs/tags/design-pattern/" style="font-size: 10px;">design pattern</a>
+      <a href="/docs/tags/Go/" style="font-size: 20px;">Go</a> <a href="/docs/tags/arch/" style="font-size: 10px;">arch</a> <a href="/docs/tags/design-pattern/" style="font-size: 20px;">design pattern</a>
     </div>
   </div>
 
@@ -585,7 +656,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2022/11/">November 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2023/03/">March 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2022/12/">December 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/docs/archives/2022/11/">November 2022</a></li></ul>
     </div>
   </div>
 
@@ -596,6 +667,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/docs/2023/12/18/vistor/">设计模式-访问者模式</a>
+          </li>
         
           <li>
             <a href="/docs/2023/03/11/abs-factory/">设计模式-抽象工厂模式</a>
@@ -611,10 +686,6 @@
         
           <li>
             <a href="/docs/2022/12/04/indepth-slice/">深入理解 slice</a>
-          </li>
-        
-          <li>
-            <a href="/docs/2022/11/25/simple-ha/">浅谈高可用</a>
           </li>
         
       </ul>
